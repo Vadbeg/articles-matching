@@ -3,6 +3,7 @@
 from typing import List
 
 import wikipedia
+import wikipedia.exceptions
 
 from articles_matching.modules.parser.wiki_article import WikiArticle
 
@@ -21,9 +22,22 @@ class WikiParser:
 
         return all_articles
 
-    @staticmethod
-    def get_article_by_name(name: str) -> WikiArticle:
-        wiki_page: wikipedia.WikipediaPage = wikipedia.page(title=name)
+    def get_article_by_name(self, name: str) -> WikiArticle:
+        wiki_page = self._get_wiki_page_by_name(name=name)
         article = WikiArticle(wikipedia_page=wiki_page)
 
         return article
+
+    @staticmethod
+    def _get_wiki_page_by_name(name: str) -> wikipedia.WikipediaPage:
+        try:
+            wiki_page: wikipedia.WikipediaPage = wikipedia.page(
+                title=name, auto_suggest=False
+            )
+        except wikipedia.exceptions.DisambiguationError as exc:
+            if len(exc.options) <= 0:
+                raise ValueError('No article!')
+
+            wiki_page = wikipedia.page(title=exc.options[0], auto_suggest=False)
+
+        return wiki_page

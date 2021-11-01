@@ -34,6 +34,10 @@ class WikiArticle:
 
         return self._url
 
+    def load_content(self):
+        if self._content is None:
+            self._content = self._get_article_content()
+
     def _get_article_content(self) -> str:
         content = self.wikipedia_page.content
 
