@@ -15,7 +15,7 @@ class Logic:
         self.wiki_parser = WikiParser()
         self.vector_model = VectorModel()
 
-        self._articles: Optional[List[WikiArticle]] = None
+        self._articles: List[WikiArticle] = []
 
     @property
     def articles(self) -> Optional[List[WikiArticle]]:
@@ -31,12 +31,12 @@ class Logic:
         ):
             curr_article.load_content()
 
-        self._articles = articles
+        self._articles.extend(articles)
 
         return articles
 
     def train_model(self):
-        if self._articles:
+        if len(self._articles) > 0:
             articles_text = [curr_article.content for curr_article in self._articles]
             self.vector_model.train(corpus=articles_text)
         else:
@@ -45,14 +45,11 @@ class Logic:
     def get_prediction(
         self, query: str, top_n: int = 1
     ) -> List[Tuple[WikiArticle, float]]:
-        if self._articles:
-            top_text_id_cos_val = self.vector_model.predict(query=query, top_n=top_n)
+        top_text_id_cos_val = self.vector_model.predict(query=query, top_n=top_n)
 
-            predictions = [
-                (self._articles[text_id], cos_val)
-                for text_id, cos_val in top_text_id_cos_val
-            ]
-        else:
-            raise ValueError('No articles downloaded')
+        predictions = [
+            (self._articles[text_id], cos_val)
+            for text_id, cos_val in top_text_id_cos_val
+        ]
 
         return predictions
