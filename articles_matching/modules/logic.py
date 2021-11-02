@@ -1,7 +1,9 @@
 """Module with main logic file"""
 
 
-from typing import List, Optional, Tuple
+import pickle
+from pathlib import Path
+from typing import List, Optional, Tuple, Union
 
 from tqdm import tqdm
 
@@ -20,6 +22,9 @@ class Logic:
     @property
     def articles(self) -> Optional[List[WikiArticle]]:
         return self._articles
+
+    def remove_all_articles(self) -> None:
+        self._articles = []
 
     def load_random_articles(
         self, num_of_articles: int = 1, verbose: bool = False
@@ -53,3 +58,17 @@ class Logic:
         ]
 
         return predictions
+
+    @staticmethod
+    def load_logic(path: Union[str, Path]) -> 'Logic':
+        path = Path(path)
+        with path.open(mode='rb') as file:
+            logic = pickle.load(file=file)
+
+        return logic
+
+    @staticmethod
+    def save_logic(logic: 'Logic', path: Union[str, Path]) -> None:
+        path = Path(path)
+        with path.open(mode='wb') as file:
+            pickle.dump(obj=logic, file=file)

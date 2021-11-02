@@ -1,5 +1,8 @@
 """Module with API"""
 
+import os
+from pathlib import Path
+
 import fastapi
 from fastapi import FastAPI, Form, Request, Response
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
@@ -19,25 +22,48 @@ templates = Jinja2Templates(directory='articles_matching/web/templates')
 
 
 logic = Logic()
+logic_path = Path('logic.pickle').absolute()
 
 
 @app.get(path='/articles', response_class=JSONResponse)
 def load_articles():
     logic.load_random_articles(num_of_articles=10, verbose=True)
+    logic.save_logic(logic=logic, path=logic_path)
 
     return JSONResponse(content={}, status_code=fastapi.status.HTTP_201_CREATED)
+
+
+@app.get(path='/articles/drop', response_class=JSONResponse)
+def remove_all_articles():
+    logic.remove_all_articles()
+    logic.save_logic(logic=logic, path=logic_path)
+
+    return JSONResponse(content={}, status_code=fastapi.status.HTTP_200_OK)
 
 
 @app.get(path='/train', response_class=JSONResponse)
 def train_model():
     try:
         logic.train_model()
+        logic.save_logic(logic=logic, path=logic_path)
     except ValueError as exc:
         return JSONResponse(
             content=str(exc), status_code=fastapi.status.HTTP_404_NOT_FOUND
         )
 
     return JSONResponse(content={}, status_code=fastapi.status.HTTP_200_OK)
+
+
+@app.get(path='/load_logic', response_class=JSONResponse)
+def load_logic():
+    status_code = fastapi.status.HTTP_204_NO_CONTENT
+
+    if logic_path.exists():
+        global logic
+        logic = logic.load_logic(path=logic_path)
+        status_code = fastapi.status.HTTP_201_CREATED
+
+    return JSONResponse(content={}, status_code=status_code)
 
 
 @app.get(path='/', response_class=RedirectResponse)

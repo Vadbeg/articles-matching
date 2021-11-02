@@ -13,9 +13,15 @@
         <button  type="button" id="training_button" class="btn btn-primary logic-buttons">
             Train model
         </button>
+        <button  type="button" id="load_logic" class="btn btn-primary logic-buttons">
+            Load logic
+        </button>
         <a href="{{ url_for('all_articles') }}" class="btn btn-primary logic-buttons">
                 All articles
         </a>
+        <button  type="button" id="remove_articles" class="btn btn-primary logic-buttons">
+            Drop all articles
+        </button>
         <form class="search-form" method="post">
             <div class="input-field second-wrap">
                 <input id="search-id" name="query-text" type="text" placeholder="Enter query..." />
@@ -98,6 +104,59 @@
 
         $.ajax(settings);
     }
+
+    load_logic.onclick = function() {
+        url = "{{ url_for('load_logic') }}";
+        enable_loading();
+
+        console.log(url);
+
+        var settings = {
+            url: url,
+            method: "GET",
+            dataType: 'json',
+            async: false,
+            traditional: true,
+            success: function (data) {
+                disable_loading();
+                real_response = data;
+            },
+            error: function (error) {
+                disable_loading();
+                alert('No downloaded articles')
+                console.log('Error', error);
+            }
+        };
+
+        $.ajax(settings);
+    }
+
+    remove_articles.onclick = function() {
+        url = "{{ url_for('remove_all_articles') }}";
+        enable_loading();
+
+        console.log(url);
+
+        var settings = {
+            url: url,
+            method: "GET",
+            dataType: 'json',
+            async: false,
+            traditional: true,
+            success: function (data) {
+                disable_loading();
+                real_response = data;
+            },
+            error: function (error) {
+                disable_loading();
+                alert('No downloaded articles')
+                console.log('Error', error);
+            }
+        };
+
+        $.ajax(settings);
+    }
+
 
 </script>
 {% endblock %}
