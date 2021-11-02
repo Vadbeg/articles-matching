@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Change document{% endblock %}</h1>
+<h1>{% block title %}Search{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="s003" id="all_info">
     <div class="inner-form">
-        <button  type="button" id="loading_button" class="logic-buttons">
+        <button  type="button" id="loading_button" class="btn btn-primary logic-buttons">
             Load 100 random articles
         </button>
-        <button  type="button" id="training_button" class="logic-buttons">
+        <button  type="button" id="training_button" class="btn btn-primary logic-buttons">
             Train model
         </button>
-        <form method="post">
+        <a href="{{ url_for('all_articles') }}" class="btn btn-primary logic-buttons">
+                All articles
+        </a>
+        <form class="search-form" method="post">
             <div class="input-field second-wrap">
                 <input id="search-id" name="query-text" type="text" placeholder="Enter query..." />
             </div>
@@ -88,6 +91,7 @@
             },
             error: function (error) {
                 disable_loading();
+                alert('No downloaded articles')
                 console.log('Error', error);
             }
         };

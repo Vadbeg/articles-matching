@@ -1,7 +1,7 @@
 """Module with main logic file"""
 
 
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from tqdm import tqdm
 
@@ -15,6 +15,12 @@ class Logic:
         self.wiki_parser = WikiParser()
         self.vector_model = VectorModel()
 
+        self._articles: Optional[List[WikiArticle]] = None
+
+    @property
+    def articles(self) -> Optional[List[WikiArticle]]:
+        return self._articles
+
     def load_random_articles(
         self, num_of_articles: int = 1, verbose: bool = False
     ) -> List[WikiArticle]:
@@ -25,27 +31,28 @@ class Logic:
         ):
             curr_article.load_content()
 
-        return articles
-
-    def load_articles_and_train_model(
-        self, num_of_articles: int = 1, verbose: bool = False
-    ) -> List[WikiArticle]:
-        articles = self.load_random_articles(
-            num_of_articles=num_of_articles, verbose=verbose
-        )
-        articles_text = [curr_article.content for curr_article in articles]
-
-        self.vector_model.train(corpus=articles_text)
+        self._articles = articles
 
         return articles
+
+    def train_model(self):
+        if self._articles:
+            articles_text = [curr_article.content for curr_article in self._articles]
+            self.vector_model.train(corpus=articles_text)
+        else:
+            raise ValueError('No articles downloaded')
 
     def get_prediction(
-        self, query: str, articles: List[WikiArticle], top_n: int = 1
+        self, query: str, top_n: int = 1
     ) -> List[Tuple[WikiArticle, float]]:
-        top_text_id_cos_val = self.vector_model.predict(query=query, top_n=top_n)
+        if self._articles:
+            top_text_id_cos_val = self.vector_model.predict(query=query, top_n=top_n)
 
-        predictions = [
-            (articles[text_id], cos_val) for text_id, cos_val in top_text_id_cos_val
-        ]
+            predictions = [
+                (self._articles[text_id], cos_val)
+                for text_id, cos_val in top_text_id_cos_val
+            ]
+        else:
+            raise ValueError('No articles downloaded')
 
         return predictions

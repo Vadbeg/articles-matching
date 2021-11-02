@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Search result{% endblock %}</h1>
+<h1>{% block title %}All articles{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
 <a href="{{ url_for('main_page') }}" class="logic-buttons">Go Back</a>
-<br>
-<span>Number of articles: {{ num_of_articles }}</span>
 
 {% for curr_article in articles %}
     <h1>{{ curr_article.title }}</h1>

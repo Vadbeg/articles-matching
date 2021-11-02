@@ -39,7 +39,8 @@ class WikiArticle:
             self._content = self._get_article_content()
 
     def _get_article_content(self) -> str:
-        content = self.wikipedia_page.content
+        content: str = self.wikipedia_page.content
+        content = content.replace('=', '')
 
         return content
 
