@@ -2,9 +2,11 @@
 
 import fastapi
 from fastapi import FastAPI, Form, Request, Response
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+
+from articles_matching.modules.logic import Logic
 
 app = FastAPI()
 app.mount(
@@ -14,6 +16,31 @@ app.mount(
 )
 
 templates = Jinja2Templates(directory='articles_matching/web/templates')
+
+
+logic = Logic()
+
+
+@app.get(path='/articles', response_class=JSONResponse)
+def load_articles():
+    print('load start')
+    import time
+
+    time.sleep(2)
+    print('load stop')
+
+    return JSONResponse(content={}, status_code=fastapi.status.HTTP_201_CREATED)
+
+
+@app.get(path='/train', response_class=JSONResponse)
+def train_model():
+    print('train start')
+    import time
+
+    time.sleep(2)
+    print('train stop')
+
+    return JSONResponse(content={}, status_code=fastapi.status.HTTP_201_CREATED)
 
 
 @app.get(path='/', response_class=RedirectResponse)

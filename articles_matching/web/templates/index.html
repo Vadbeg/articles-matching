@@ -5,17 +5,17 @@
 {% endblock %}
 
 {% block content %}
-<div class="s003">
+<div class="s003" id="all_info">
     <div class="inner-form">
-        <button type="button" class="load-articles">
+        <button  type="button" id="loading_button" class="logic-buttons">
             Load 100 random articles
         </button>
-        <button type="button" class="train-model">
+        <button  type="button" id="training_button" class="logic-buttons">
             Train model
         </button>
         <form method="post">
             <div class="input-field second-wrap">
-                <input id="search-id" name="query-text" type="text" placeholder="Enter Keywords?" />
+                <input id="search-id" name="query-text" type="text" placeholder="Enter query..." />
             </div>
             <div class="input-field third-wrap">
                 <button class="btn-search" type="submit">
@@ -27,6 +27,73 @@
         </form>
 
     </div>
-
 </div>
+<div id="loader" class="center"></div>
+
+<script>
+    enable_loading = function() {
+        document.querySelector(
+              "#loader"
+        ).style.visibility = "visible";
+        $('#all_info').addClass('blurring');
+    };
+
+    disable_loading = function() {
+        document.querySelector(
+                  "#loader"
+        ).style.visibility = "hidden";
+        $('#all_info').removeClass('blurring');
+    };
+
+    loading_button.onclick = function() {
+        url = "{{ url_for('load_articles') }}";
+        enable_loading();
+
+        console.log(url);
+
+        var settings = {
+            url: url,
+            method: "GET",
+            dataType: 'json',
+            async: false,
+            traditional: true,
+            success: function (data) {
+                disable_loading();
+                real_response = data;
+            },
+            error: function (error) {
+                disable_loading();
+                console.log('Error', error);
+            }
+        };
+
+        $.ajax(settings);
+    }
+
+    training_button.onclick = function() {
+        url = "{{ url_for('train_model') }}";
+        enable_loading();
+
+        console.log(url);
+
+        var settings = {
+            url: url,
+            method: "GET",
+            dataType: 'json',
+            async: false,
+            traditional: true,
+            success: function (data) {
+                disable_loading();
+                real_response = data;
+            },
+            error: function (error) {
+                disable_loading();
+                console.log('Error', error);
+            }
+        };
+
+        $.ajax(settings);
+    }
+
+</script>
 {% endblock %}

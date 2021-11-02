@@ -844,18 +844,27 @@ legend {
   border-radius: 3px;
 }
 
-.s003 .inner-form .load-articles {
+.s003 .inner-form .logic-buttons {
   display: -ms-flexbox;
+  background: #fff;
   display: flex;
+  -ms-flex-align: center;
+    align-items: center;
   border-radius: 3px;
-  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.s003 .inner-form .train-model {
-  display: -ms-flexbox;
-  display: flex;
-  border-radius: 3px;
-  margin: 5px;
+a.button-link {
+  font: bold 11px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
 }
 
 .s003 .inner-form form .input-field {
@@ -1042,4 +1051,38 @@ legend {
     margin-bottom: 0;
     width: 100%;
   }
+}
+
+
+#loader {
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #444444;
+    width: 70px;
+    height: 70px;
+    animation: spin 1s linear infinite;
+    visibility: hidden
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.blurring {
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
 }
