@@ -831,7 +831,7 @@ legend {
   margin-bottom: 0;
 }
 
-.s003 form .inner-form {
+.s003 .inner-form form  {
   background: #fff;
   display: -ms-flexbox;
   display: flex;
@@ -844,11 +844,25 @@ legend {
   border-radius: 3px;
 }
 
-.s003 form .inner-form .input-field {
+.s003 .inner-form .load-articles {
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.s003 .inner-form .train-model {
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.s003 .inner-form form .input-field {
   height: 68px;
 }
 
-.s003 form .inner-form .input-field input {
+.s003 .inner-form form .input-field input {
   height: 100%;
   background: transparent;
   border: 0;
@@ -859,33 +873,33 @@ legend {
   color: #555;
 }
 
-.s003 form .inner-form .input-field input.placeholder {
+.s003 .inner-form form .input-field input.placeholder {
   color: #888;
   font-size: 16px;
 }
 
-.s003 form .inner-form .input-field input:-moz-placeholder {
+.s003 .inner-form form .input-field input:-moz-placeholder {
   color: #888;
   font-size: 16px;
 }
 
-.s003 form .inner-form .input-field input::-webkit-input-placeholder {
+.s003 .inner-form form .input-field input::-webkit-input-placeholder {
   color: #888;
   font-size: 16px;
 }
 
-.s003 form .inner-form .input-field input:hover, .s003 form .inner-form .input-field input:focus {
+.s003 .inner-form form  .input-field input:hover, .s003 .inner-form form .input-field input:focus {
   box-shadow: none;
   outline: 0;
   border-color: #fff;
 }
 
-.s003 form .inner-form .input-field.first-wrap {
+.s003 .inner-form form .input-field.first-wrap {
   width: 200px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__inner {
+.s003 .inner-form form .input-field.first-wrap .choices__inner {
   background: transparent;
   border-radius: 0;
   border: 0;
@@ -898,7 +912,7 @@ legend {
   padding: 10px 30px;
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__inner .choices__list.choices__list--single {
+.s003 .inner-form form .input-field.first-wrap .choices__inner .choices__list.choices__list--single {
   display: -ms-flexbox;
   display: flex;
   padding: 0;
@@ -907,7 +921,7 @@ legend {
   height: 100%;
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
+.s003 .inner-form form .input-field.first-wrap .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -917,7 +931,7 @@ legend {
   color: #888;
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__inner .choices__list--single .choices__item {
+.s003 .inner-form form .input-field.first-wrap .choices__inner .choices__list--single .choices__item {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -926,12 +940,12 @@ legend {
   color: #555;
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices[data-type*="select-one"]:after {
+.s003 .inner-form form .input-field.first-wrap .choices[data-type*="select-one"]:after {
   right: 30px;
   border-color: #e5e5e5 transparent transparent transparent;
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__list.choices__list--dropdown {
+.s003 .inner-form form .input-field.first-wrap .choices__list.choices__list--dropdown {
   border: 0;
   background: #fff;
   padding: 20px 30px;
@@ -940,30 +954,30 @@ legend {
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__list.choices__list--dropdown .choices__item--selectable {
+.s003 .inner-form form .input-field.first-wrap .choices__list.choices__list--dropdown .choices__item--selectable {
   padding-right: 0;
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__list--dropdown .choices__item--selectable.is-highlighted {
+.s003 .inner-form form .input-field.first-wrap .choices__list--dropdown .choices__item--selectable.is-highlighted {
   background: #fff;
   color: #63c76a;
 }
 
-.s003 form .inner-form .input-field.first-wrap .choices__list--dropdown .choices__item {
+.s003 .inner-form form .input-field.first-wrap .choices__list--dropdown .choices__item {
   color: #555;
   min-height: 24px;
 }
 
-.s003 form .inner-form .input-field.second-wrap {
+.s003 .inner-form form .input-field.second-wrap {
   -ms-flex-positive: 1;
       flex-grow: 1;
 }
 
-.s003 form .inner-form .input-field.third-wrap {
+.s003 .inner-form form .input-field.third-wrap {
   width: 74px;
 }
 
-.s003 form .inner-form .input-field.third-wrap .btn-search {
+.s003 .inner-form form .input-field.third-wrap .btn-search {
   height: 100%;
   width: 100%;
   white-space: nowrap;
@@ -974,57 +988,57 @@ legend {
   transition: all .2s ease-out, color .2s ease-out;
 }
 
-.s003 form .inner-form .input-field.third-wrap .btn-search svg {
+.s003 .inner-form form .input-field.third-wrap .btn-search svg {
   width: 16px;
 }
 
-.s003 form .inner-form .input-field.third-wrap .btn-search:hover {
+.s003 .inner-form form .input-field.third-wrap .btn-search:hover {
   background: #50c058;
 }
 
-.s003 form .inner-form .input-field.third-wrap .btn-search:focus {
+.s003 .inner-form form .input-field.third-wrap .btn-search:focus {
   outline: 0;
   box-shadow: none;
 }
 
 @media screen and (max-width: 992px) {
-  .s003 form .inner-form .input-field {
+  .s003 .inner-form form .input-field {
     height: 50px;
   }
 }
 
 @media screen and (max-width: 767px) {
-  .s003 form .inner-form {
+  .s003 .inner-form form {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     padding: 20px;
   }
-  .s003 form .inner-form .input-field {
+  .s003 .inner-form form .input-field {
     margin-bottom: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
-  .s003 form .inner-form .input-field input {
+  .s003 .inner-form form .input-field input {
     padding: 10px 15px;
   }
-  .s003 form .inner-form .input-field.first-wrap {
+  .s003 .inner-form form .input-field.first-wrap {
     width: 100%;
     border-right: 0;
   }
-  .s003 form .inner-form .input-field.first-wrap .choices__inner {
+  .s003 .inner-form form .input-field.first-wrap .choices__inner {
     padding: 10px 15px;
   }
-  .s003 form .inner-form .input-field.first-wrap .choices[data-type*="select-one"]:after {
+  .s003 .inner-form form .input-field.first-wrap .choices[data-type*="select-one"]:after {
     right: 11.5px;
     border-color: #e5e5e5 transparent transparent transparent;
   }
-  .s003 form .inner-form .input-field.second-wrap {
+  .s003 .inner-form form .input-field.second-wrap {
     width: 100%;
     margin-bottom: 30px;
   }
-  .s003 form .inner-form .input-field.second-wrap input {
+  .s003 .inner-form form .input-field.second-wrap input {
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
-  .s003 form .inner-form .input-field.third-wrap {
+  .s003 .inner-form form .input-field.third-wrap {
     margin-bottom: 0;
     width: 100%;
   }
