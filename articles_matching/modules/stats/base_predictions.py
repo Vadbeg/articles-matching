@@ -18,7 +18,7 @@ class BasePredictor:
                 'id': idx,
                 'text': curr_word,
             }
-            for idx, curr_word in texts
+            for idx, curr_word in texts_with_id
         ]
         helpers.bulk(self.elastic, insert_data)
         self._refresh_index()
