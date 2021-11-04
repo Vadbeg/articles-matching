@@ -57,19 +57,20 @@ class StatsCalculator:
                 query=curr_query
             )
 
-            metrics = self._update_metrics(
-                metrics=metrics,
-                pred=base_text_ids,
-                true=new_text_ids,
-                pred_scores=pred_scores,
-                total_texts_num=len(texts),
-            )
-            plot_metrics = self._update_plot_metrics(
-                plot_metrics=plot_metrics,
-                pred=base_text_ids,
-                true=new_text_ids,
-                pred_scores=pred_scores,
-            )
+            if len(base_text_ids) > 0:
+                metrics = self._update_metrics(
+                    metrics=metrics,
+                    pred=base_text_ids,
+                    true=new_text_ids,
+                    pred_scores=pred_scores,
+                    total_texts_num=len(texts),
+                )
+                plot_metrics = self._update_plot_metrics(
+                    plot_metrics=plot_metrics,
+                    pred=base_text_ids,
+                    true=new_text_ids,
+                    pred_scores=pred_scores,
+                )
 
         processed_metrics = self._process_metrics(metrics=metrics)
         processed_plot_metrics = self._process_plot_metrics(plot_metrics=plot_metrics)
@@ -113,6 +114,13 @@ class StatsCalculator:
             base_text_ids.append(int(curr_base_pred[1]['id']))
             new_text_ids.append(curr_new_pred[0])
             pred_scores.append(curr_new_pred[1])
+
+        max_pred_score = max(pred_scores)
+
+        if max_pred_score > 0:
+            pred_scores = [
+                curr_pred_score / max_pred_score for curr_pred_score in pred_scores
+            ]
 
         return base_text_ids, new_text_ids, pred_scores
 

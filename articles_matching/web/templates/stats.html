@@ -6,6 +6,9 @@
 
 {% block content %}
 <a href="{{ url_for('main_page') }}" class="btn btn-primary logic-buttons small-btn-margin">Go Back</a>
+<p>Total number of articles: {{ num_of_articles }}</p>
+<p>Total number of words for search (without combinations): {{ num_of_top_words }}</p>
+
 <br>
 
 <table class="styled-table">

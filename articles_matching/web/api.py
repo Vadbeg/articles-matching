@@ -27,10 +27,13 @@ templates = Jinja2Templates(directory='articles_matching/web/templates')
 logic = Logic()
 logic_path = Path('logic.pickle').absolute()
 
+NUM_OF_ARTICLES = 10
+NUM_OF_TOP_WORDS = 20
+
 stats_calculator = StatsCalculator(
     base_predictor_url='localhost:9200',
-    num_of_articles=2,
-    num_of_top_words=10,
+    num_of_articles=NUM_OF_ARTICLES,
+    num_of_top_words=NUM_OF_TOP_WORDS,
     verbose=True,
 )
 
@@ -148,5 +151,7 @@ def show_stats(request: Request) -> Response:
             'request': request,
             'metrics': metrics_to_show,
             'predictions_recall_plot': predictions_recall_plot,
+            'num_of_articles': NUM_OF_ARTICLES,
+            'num_of_top_words': NUM_OF_TOP_WORDS,
         },
     )
