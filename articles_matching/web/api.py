@@ -114,3 +114,8 @@ def all_articles(request: Request) -> Response:
         'search_result.html',
         {'request': request, 'articles': articles, 'num_of_articles': len(articles)},
     )
+
+
+@app.get('/stats', response_class=HTMLResponse)
+def show_stats(request: Request) -> Response:
+    pass
