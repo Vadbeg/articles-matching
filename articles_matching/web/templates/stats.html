@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Stats{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('main_page') }}" class="btn btn-primary logic-buttons small-btn-margin">Go Back</a>
+<br>
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>metric_name</th>
+            <th>metric_value</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for curr_metric in metrics %}
+    <tr>
+        <td>{{ curr_metric.name }}</td>
+        <td>{{ curr_metric.value }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {{ predictions_recall_plot|safe }}
+</div>
+
+{% endblock %}

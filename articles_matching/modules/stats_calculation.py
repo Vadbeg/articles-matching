@@ -224,4 +224,4 @@ class StatsCalculator:
         fig.update_yaxes(scaleanchor="x", scaleratio=1)
         fig.update_xaxes(constrain='domain')
 
-        return fig.to_json()
+        return fig.to_html(full_html=False)

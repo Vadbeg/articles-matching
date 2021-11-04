@@ -8,20 +8,23 @@
 <div class="s003" id="all_info">
     <div class="inner-form">
         <button  type="button" id="loading_button" class="btn btn-primary logic-buttons">
-            Load 10 more random articles
+            Load 10 more articles
         </button>
         <button  type="button" id="training_button" class="btn btn-primary logic-buttons">
-            Train model
+            Train
         </button>
         <button  type="button" id="load_logic" class="btn btn-primary logic-buttons">
             Load logic
         </button>
         <a href="{{ url_for('all_articles') }}" class="btn btn-primary logic-buttons">
-                All articles
+            Articles
         </a>
         <button  type="button" id="remove_articles" class="btn btn-primary logic-buttons">
             Drop all articles
         </button>
+        <a href="{{ url_for('show_stats') }}" id="show_stats" class="btn btn-primary logic-buttons">
+            Stats
+        </a>
         <form class="search-form" method="post">
             <div class="input-field second-wrap">
                 <input id="search-id" name="query-text" type="text" placeholder="Enter query..." />
@@ -155,6 +158,10 @@
         };
 
         $.ajax(settings);
+    }
+
+    show_stats.onclick = function() {
+        enable_loading();
     }
 
 

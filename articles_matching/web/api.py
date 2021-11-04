@@ -1,6 +1,6 @@
 """Module with API"""
 
-import os
+import warnings
 from pathlib import Path
 
 import fastapi
@@ -10,6 +10,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from articles_matching.modules.logic import Logic
+from articles_matching.modules.stats_calculation import StatsCalculator
+
+warnings.filterwarnings('ignore')
 
 app = FastAPI()
 app.mount(
@@ -23,6 +26,13 @@ templates = Jinja2Templates(directory='articles_matching/web/templates')
 
 logic = Logic()
 logic_path = Path('logic.pickle').absolute()
+
+stats_calculator = StatsCalculator(
+    base_predictor_url='localhost:9200',
+    num_of_articles=2,
+    num_of_top_words=10,
+    verbose=True,
+)
 
 
 @app.get(path='/articles', response_class=JSONResponse)
@@ -118,4 +128,25 @@ def all_articles(request: Request) -> Response:
 
 @app.get('/stats', response_class=HTMLResponse)
 def show_stats(request: Request) -> Response:
-    pass
+    metrics, plot_metrics = stats_calculator.models_validation()
+
+    precisions = plot_metrics[stats_calculator.precisions_for_plot]
+    recalls = plot_metrics[stats_calculator.recalls_for_plot]
+
+    predictions_recall_plot = stats_calculator.get_precision_recall_plot(
+        precisions=precisions, recalls=recalls
+    )
+
+    metrics_to_show = [
+        {'name': metric_name, 'value': metric_value}
+        for metric_name, metric_value in metrics.items()
+    ]
+
+    return templates.TemplateResponse(
+        'stats.html',
+        {
+            'request': request,
+            'metrics': metrics_to_show,
+            'predictions_recall_plot': predictions_recall_plot,
+        },
+    )

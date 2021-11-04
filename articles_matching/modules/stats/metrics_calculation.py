@@ -1,10 +1,13 @@
 """Module with metrics calculation"""
 
 
+import math
 from typing import Dict, List, Tuple
 
 import numpy as np
 from sklearn.metrics import average_precision_score, precision_score, recall_score
+
+from articles_matching.modules.stats.utils import ignore_zero_division
 
 
 class MetricCalculator:
@@ -19,6 +22,9 @@ class MetricCalculator:
     found_and_not_relevant_name = 'found_and_not_relevant'
     not_found_and_relevant_name = 'not_found_and_relevant'
     not_found_and_not_relevant_name = 'not_found_not_relevant'
+
+    def __init__(self):
+        self.eps = 0.0000001
 
     def _get_values(
         self, pred: List[int], true: List[int], total_num: int
@@ -43,6 +49,7 @@ class MetricCalculator:
 
         return values
 
+    @ignore_zero_division
     def get_recall(self, pred: List[int], true: List[int], total_num: int) -> float:
         values = self._get_values(pred=pred, true=true, total_num=total_num)
 
@@ -53,6 +60,7 @@ class MetricCalculator:
 
         return recall
 
+    @ignore_zero_division
     def get_precision(self, pred: List[int], true: List[int], total_num: int) -> float:
         values = self._get_values(pred=pred, true=true, total_num=total_num)
 
@@ -63,6 +71,7 @@ class MetricCalculator:
 
         return precision
 
+    @ignore_zero_division
     def get_accuracy(self, pred: List[int], true: List[int], total_num: int) -> float:
         values = self._get_values(pred=pred, true=true, total_num=total_num)
 
@@ -78,6 +87,7 @@ class MetricCalculator:
 
         return accuracy
 
+    @ignore_zero_division
     def get_error(self, pred: List[int], true: List[int], total_num: int) -> float:
         values = self._get_values(pred=pred, true=true, total_num=total_num)
 
@@ -93,6 +103,7 @@ class MetricCalculator:
 
         return accuracy
 
+    @ignore_zero_division
     def get_f_score(self, pred: List[int], true: List[int], total_num: int) -> float:
         recall = self.get_recall(pred=pred, true=true, total_num=total_num)
         precision = self.get_precision(pred=pred, true=true, total_num=total_num)
@@ -112,6 +123,9 @@ class MetricCalculator:
         avg_precision = average_precision_score(
             y_true=binary_labels, y_score=pred_scores
         )
+
+        if math.isnan(avg_precision):
+            return 0.0
 
         return avg_precision
 
