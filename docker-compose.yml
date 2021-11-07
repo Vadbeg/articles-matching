@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  elasticsearch:
+    image: elasticsearch:7.12.0
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+
+  articles_matching:
+    build: .
+    environment:
+      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - elasticsearch
+
+volumes:
+  esdata:
+    driver: local

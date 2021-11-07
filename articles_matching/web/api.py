@@ -1,5 +1,6 @@
 """Module with API"""
 
+import os
 import warnings
 from pathlib import Path
 
@@ -27,11 +28,15 @@ templates = Jinja2Templates(directory='articles_matching/web/templates')
 logic = Logic()
 logic_path = Path('logic.pickle').absolute()
 
-NUM_OF_ARTICLES = 10
+NUM_OF_ARTICLES = 40
 NUM_OF_TOP_WORDS = 20
 
+BASE_PREDICTOR_URL = os.getenv('ELASTICSEARCH_URL')
+if BASE_PREDICTOR_URL is None:
+    raise ValueError(f'Elasticsearch is not loaded yet!')
+
 stats_calculator = StatsCalculator(
-    base_predictor_url='localhost:9200',
+    base_predictor_url=BASE_PREDICTOR_URL,
     num_of_articles=NUM_OF_ARTICLES,
     num_of_top_words=NUM_OF_TOP_WORDS,
     verbose=True,

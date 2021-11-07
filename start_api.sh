@@ -1,1 +1,3 @@
-uvicorn articles_matching.web.api:app --reload --port 8000
+#!/bin/sh
+
+uvicorn articles_matching.web.api:app --reload --host 0.0.0.0 --port 8000
