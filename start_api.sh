@@ -1,1 +1,1 @@
-uvicorn articles_matching.web.api:app --reload --port 9000
+uvicorn articles_matching.web.api:app --reload --port 8000

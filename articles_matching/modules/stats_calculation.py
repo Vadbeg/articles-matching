@@ -104,7 +104,7 @@ class StatsCalculator:
 
     def _get_predictions(self, query: str) -> Tuple[List[int], List[int], List[float]]:
         base_predictions = self.base_predictor.predict(query=query)
-        new_predictions = self.vector_model.predict(query=query, top_n=5)
+        new_predictions = self.vector_model.predict(query=query, top_n=10)
 
         base_text_ids = []
         new_text_ids = []
@@ -115,7 +115,9 @@ class StatsCalculator:
             new_text_ids.append(curr_new_pred[0])
             pred_scores.append(curr_new_pred[1])
 
-        max_pred_score = max(pred_scores)
+        max_pred_score = 0.0
+        if len(pred_scores) > 0:
+            max_pred_score = max(pred_scores)
 
         if max_pred_score > 0:
             pred_scores = [
